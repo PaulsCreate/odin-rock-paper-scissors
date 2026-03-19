@@ -14,7 +14,7 @@ function getComputerChoice() {
 
 
 function getHumanChoice() {
-    let choice = prompt("Enter either 'rock', 'paper' or 'scissors'")
+    let choice = prompt("Enter either 'rock', 'paper' or 'scissors' to win")
     let lower = choice.toLowerCase()
     return lower
 }
@@ -61,17 +61,19 @@ function playGame() {
 
     }     
     }
-    // alert('Welcome, play 5 rounds of rock, paper scissors with me')
+    alert('Welcome, play 5 rounds of rock, paper scissors with me')
 
     while (humanScore <5 && computerScore <5) {
         let humanChoice = getHumanChoice()
         let computerChoice = getComputerChoice()
         playRound(humanChoice, computerChoice)
     }
-    if (humanScore >=5) {
+    if (humanScore >=3) {
         console.log('You won!')
+        alert(`You Won, bravo!! ${humanScore}`)
     } else {
         console.log('You lost, try harder next time! best luck')
+        alert(`You lost, try harder next time😥`)
         }
 
 }
