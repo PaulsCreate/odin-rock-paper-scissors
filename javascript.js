@@ -50,7 +50,7 @@ gameStart.addEventListener(`click`, () => {
 });
 
 for (let i = 0; i < 3; i++) {
-    classSelector(`.btn-${i + 1}`).addEventListener(`click`, function () {
+    classSelector(`.btn-${i}`).addEventListener(`click`, function () {
         if (!roundPlayed) {
             roundResult.classList.remove(`hidden`);
             roundPlayed = true;
@@ -91,8 +91,8 @@ replayBtn.addEventListener(`click`, function () {
     playScore = 0;
     computerScore = 0;
     roundPlayed = false;
-    humanScore.textContent = 0;
-    compScore.textContent = 0;
+    humanScoreEl.textContent = 0;
+    compScoreEl.textContent = 0;
     gameEnd.classList.add(`hidden`);
     gameSec.classList.remove(`hidden`);
 });
