@@ -3,9 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="javascript.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="javascript.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    
     <title>Rocks-Paper-Scissors Game</title>
 </head>
 <body>
+    <div class="intro-section">
+        <h1 class="title">ROCK PAPER SCISSORS</h1>
+        <p class="instruction">
+            Rock beats scissors 
+            Scissors beats Paper
+            Paper beats Rock
+        </p>
+        <button class="btn btn-start">Start</button>
+    </div>
+    <div class="game-section hidden">
+        <div class="score-board">
+            <p>You<span class="human-score">0</span></p>
+            <p>Com <span class="computer-score">0</span></p>  
+        </div>
+        <div class="game-button">
+            <button class="btn btn-0">R</button>
+            <button class="btn btn-1">P</button>
+            <button class="btn btn-2">S</button>
+        </div>
+        <div class="round-result hidden">
+            <p class="round-result-text">
+                Lorem
+            </p>
+        </div>
+    </div>
+    <div class="end-result hidden">
+        <p class="final-result">
+            Lorem
+        </p>
+        <button class="btn play-again">Play Again</button>
+    </div> 
 </body>
 </html>

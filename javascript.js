@@ -1,89 +1,98 @@
-// console.log('Hello World!')
-// PSEUDOCODE
-// Define a function - getComputerChoice
-// The function return randomly:
-    // rock, paper or scissors 
-// Hint: use Math.random to generate random numbers (>=0 and <1)
-function getComputerChoice() {
-    // let guess = parseInt(prompt('Enter a Number to guess out either Rock, Paper or Scissors'))
-    const gen = Math.floor(Math.random()*3)
-    return (gen==0) ? 'rock' : (gen==1) ? 'paper' : 'scissors';
-}
+const classSelector = (e) => document.querySelector(e);
 
-// getComputerChoice()
+const winnerDeclaration = () => {
+    return `You ${roundWinner === 0 ? `won` : `lost`}! You chose ${playerChoice === 0 ? `rock` : playerChoice === 1 ? `paper` : `scissors`} ${roundWinner === 0 ? `and` : `, but`} the comp chose ${computerChoice === 0 ? `rock` : computerChoice === 1 ? `paper` : `scissors`}.`;
+};
 
+// DOM variables
+const intro = classSelector(`.intro-section`),
+    gameStart = classSelector(`.btn-start`),
+    gameSec = classSelector(`.game-section`),
+    roundResult = classSelector(`.round-result`),
+    roundResultText = classSelector(`.round-result-text`),
+    gameEnd = classSelector(`.end-result`),
+    finaleResult = classSelector(`.final-result`),
+    replayBtn = classSelector(`.play-again`),
+    humanScoreEl = classSelector(`.human-score`),
+    compScoreEl = classSelector(`.computer-score`);
 
-function getHumanChoice() {
-    let choice = prompt("Enter either 'rock', 'paper' or 'scissors' to win")
-    let lower = choice.toLowerCase()
-    return lower
-}
+let playScore = 0,
+    computerScore = 0,
+    playerChoice,
+    computerChoice,
+    roundPlayed = false,
+    roundWinner;
 
-// getHumanChoice()
-
-
-
-function playGame() {
-    let humanScore = 0;
-    let computerScore = 0; 
-    function playRound(humanChoice, computerChoice) {
-    if (humanChoice == 'rock') {
-        if(computerChoice =='rock') {
-            console.log("It's a draw, no one wins!")
-        } else if (computerChoice == 'paper') {
-            computerScore++;
-            console.log(`You Lose, ${computerChoice} beats ${humanChoice}`)
+// Function to end a round
+const roundEnd = () => {
+    setTimeout(() => {
+        if (playScore === 5) {
+            gameSec.classList.add(`hidden`);
+            roundResult.classList.add(`hidden`);
+            gameEnd.classList.remove(`hidden`);
+            finaleResult.textContent = `Bravo!! You've Won🥳!!!`;
+        } else if (computerScore === 5) {
+            gameSec.classList.add(`hidden`);
+            roundResult.classList.add(`hidden`);
+            gameEnd.classList.remove(`hidden`);
+            finaleResult.textContent = `Ooops!! You've Lost the Game😥`;
         } else {
-            humanScore++
-            console.log(`You win, ${humanChoice} beats ${computerChoice}`)
+            roundPlayed = false;
+            roundResult.classList.add(`hidden`);
         }
-    }
-    else if (humanChoice =='paper') {
-        if(computerChoice =='paper') {
-            console.log("No one wins, It's a draw")
-        } else if (computerChoice == 'scissors'){
-            computerScore++
-            console.log(`Computer wins, ${computerChoice} beats ${humanChoice}`)
-        } else{
-            humanScore++
-            console.log(`You win!, ${humanChoice} beats ${computerChoice}`)
-        }
-    }else {
-        if(computerChoice=='scissors') {
-            console.log("it's a draw, no one wins")
-        }else if (computerChoice=='rock') {
-            computerScore++;
-            console.log(`You lose, ${computerChoice} beats ${humanChoice}`)
-        } else {
-            humanScore++
-            console.log(`You win, ${humanChoice} beats ${computerChoice}`)
-        }
+    }, 2500);
+};
 
-    }     
-    }
-    alert('Welcome, play 5 rounds of rock, paper scissors with me')
+// Initializing the game
+gameStart.addEventListener(`click`, () => {
+    intro.classList.add(`hidden`);
+    gameSec.classList.remove(`hidden`);
+});
 
-    while (humanScore <5 && computerScore <5) {
-        let humanChoice = getHumanChoice()
-        let computerChoice = getComputerChoice()
-        playRound(humanChoice, computerChoice)
-    }
-    if (humanScore >=3) {
-        console.log('You won!')
-        alert(`You Won, bravo!! ${humanScore}`)
-    } else {
-        console.log('You lost, try harder next time! best luck')
-        alert(`You lost, try harder next time😥`)
+for (let i = 0; i < 3; i++) {
+    classSelector(`.btn-${i + 1}`).addEventListener(`click`, function () {
+        if (!roundPlayed) {
+            roundResult.classList.remove(`hidden`);
+            roundPlayed = true;
+            playerChoice = i;
+            computerChoice = Math.trunc(Math.random() * 3);
+
+            if (
+                (playerChoice === 0 && computerChoice === 2) ||
+                (playerChoice === 1 && computerChoice === 0) ||
+                (playerChoice === 2 && computerChoice === 1)
+            ) {
+                roundWinner = 0;
+                playScore++;
+                roundResultText.textContent = winnerDeclaration();
+                roundEnd();
+            } else if (
+                (computerChoice === 0 && playerChoice === 2) ||
+                (computerChoice === 1 && playerChoice === 0) ||
+                (computerChoice === 2 && playerChoice === 1)
+            ) {
+                roundWinner = 1;
+                computerScore++;
+                roundResultText.textContent = winnerDeclaration();
+                roundEnd();
+            } else if (playerChoice === computerChoice) {
+                roundResultText.textContent = `It's a draw! Choose again.`;
+                roundPlayed = false;
+            }
+
+            humanScoreEl.textContent = playScore;
+            compScoreEl.textContent = computerScore;
         }
-
+    });
 }
 
-
-
-playGame()
-
-
-//  const humanSelection = getHumanChoice()
-//  const computerSelection = getComputerChoice()
-
-// playRound(humanSelection, computerSelection);
+// Reset and replay
+replayBtn.addEventListener(`click`, function () {
+    playScore = 0;
+    computerScore = 0;
+    roundPlayed = false;
+    humanScore.textContent = 0;
+    compScore.textContent = 0;
+    gameEnd.classList.add(`hidden`);
+    gameSec.classList.remove(`hidden`);
+});

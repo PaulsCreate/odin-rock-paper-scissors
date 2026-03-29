@@ -8,4 +8,6 @@ Rock, paper, scissors (also known as Rochambeau, Roshambo, or Janken) is a fun a
 * Use rock, paper, scissors to settle minor decisions or simply play to pass the time
 
 
-## 
+[Live Link](https://paulscreate.github.io/odin-rock-paper-scissors/)
+
+>After the page load, enable developer tool to look at the console for the activity loggin
